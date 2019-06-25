@@ -32,13 +32,15 @@ public class ItemListView extends Fragment
     public ItemListView() {
     }
 
-    public static ItemListView newInstance() {
+    static ItemListView newInstance() {
         return new ItemListView();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        // until I implement DI.
+        logic = new ItemListLogic(this);
     }
 
     @Override
@@ -54,6 +56,12 @@ public class ItemListView extends Fragment
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         adapter = new ItemAdapter();
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        logic.onStart();
     }
 
     @Override

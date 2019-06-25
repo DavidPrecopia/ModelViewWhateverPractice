@@ -6,8 +6,7 @@
         android:id="@+id/list"
         android:name="com.example.modelviewwhateverpractice.list.ItemListFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/margin_normal">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

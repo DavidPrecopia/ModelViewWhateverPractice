@@ -14,6 +14,8 @@ interface IViewContract {
     }
 
     interface Logic {
+        void onStart();
+
         void onItemClicked(int position);
     }
 
