@@ -4,6 +4,8 @@ import com.example.modelviewwhateverpractice.datamodel.Item;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 interface IViewContract {
     interface View {
         void setList(List<Item> itemList);
@@ -11,18 +13,23 @@ interface IViewContract {
         void uiStateLoading();
 
         void uiStateDisplayList();
+
+        void uiStateError(String message);
     }
 
     interface Logic {
+        void onItemClicked(int position);
+
         void onStart();
 
-        void onItemClicked(int position);
+        void onPause();
     }
 
-    // TODO Get Logic working, then add this.
+    /**
+     * Thanks to JetPack's ViewModel this will persist util the View is finished.
+     * Because of that, this will directly talk to the Repository.
+     */
     interface ViewModel {
-        void updateCache(List<Item> itemList);
-
-        List<Item> getCache();
+        Flowable<List<Item>> subscribe();
     }
 }

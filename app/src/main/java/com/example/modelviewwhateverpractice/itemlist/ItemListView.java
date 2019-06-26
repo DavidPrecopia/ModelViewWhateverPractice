@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +27,6 @@ public class ItemListView extends Fragment
     private ViewItemListBinding binding;
     private ItemAdapter adapter;
 
-    // TODO init
     private IViewContract.Logic logic;
 
 
@@ -40,7 +41,10 @@ public class ItemListView extends Fragment
     public void onAttach(Context context) {
         super.onAttach(context);
         // until I implement DI.
-        logic = new ItemListLogic(this);
+        logic = new ItemListLogic(
+                this,
+                ViewModelProviders.of(this).get(ItemListViewModel.class)
+        );
     }
 
     @Override
@@ -65,10 +69,10 @@ public class ItemListView extends Fragment
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onPause() {
+        super.onPause();
+        logic.onPause();
     }
-
 
     @Override
     public void setList(List<Item> itemList) {
@@ -85,5 +89,14 @@ public class ItemListView extends Fragment
     public void uiStateDisplayList() {
         binding.progressBar.setVisibility(View.INVISIBLE);
         binding.recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void uiStateError(String message) {
+        binding.progressBar.setVisibility(View.INVISIBLE);
+        binding.recyclerView.setVisibility(View.INVISIBLE);
+        TextView error = binding.error;
+        error.setText(message);
+        error.setVisibility(View.VISIBLE);
     }
 }

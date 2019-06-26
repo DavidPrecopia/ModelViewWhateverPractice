@@ -22,10 +22,14 @@ public class ItemListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
-        init();
+        initView();
     }
 
-    private void init() {
+    /**
+     * Instead of check whether or not `savedInstanceState` is null,
+     * I'll check if the View has the Fragment, if not, I'll init as normal.
+     */
+    private void initView() {
         Fragment view = fragmentManager.findFragmentByTag(VIEW_ID);
         if (view == null) {
             view = ItemListView.newInstance();
