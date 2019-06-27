@@ -11,6 +11,7 @@ import java.util.List;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
+import timber.log.Timber;
 
 public final class Repository implements IRepositoryContract.Repository {
 
@@ -23,6 +24,7 @@ public final class Repository implements IRepositoryContract.Repository {
 
     @Override
     public Flowable<List<Item>> observe() {
+        Timber.i("REPOSITORY OBSERVE METHOD");
         return dao.getAllItems();
     }
 
@@ -34,5 +36,10 @@ public final class Repository implements IRepositoryContract.Repository {
     @Override
     public Completable addItem(Item item) {
         return Completable.fromCallable(() -> (dao.addItem(item) >= 0));
+    }
+
+    @Override
+    public Completable addItems(List<Item> items) {
+        return Completable.fromCallable(() -> (dao.addItems(items).length >= 0));
     }
 }

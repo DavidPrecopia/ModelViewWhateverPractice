@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.modelviewwhateverpractice.R;
 import com.example.modelviewwhateverpractice.databinding.ViewItemListBinding;
 import com.example.modelviewwhateverpractice.datamodel.Item;
+import com.example.modelviewwhateverpractice.repository.Repository;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,9 +43,11 @@ public class ItemListView extends Fragment
     public void onAttach(Context context) {
         super.onAttach(context);
         // until I implement DI.
+        ViewModelProvider.NewInstanceFactory factory
+                = new ItemViewModelFactory(new Repository(getActivity().getApplication()));
         logic = new ItemListLogic(
                 this,
-                ViewModelProviders.of(this).get(ItemListViewModel.class)
+                ViewModelProviders.of(this, factory).get(ItemListViewModel.class)
         );
     }
 
@@ -82,12 +86,14 @@ public class ItemListView extends Fragment
     @Override
     public void uiStateLoading() {
         binding.progressBar.setVisibility(View.VISIBLE);
+        binding.error.setVisibility(View.INVISIBLE);
         binding.recyclerView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void uiStateDisplayList() {
         binding.progressBar.setVisibility(View.INVISIBLE);
+        binding.error.setVisibility(View.INVISIBLE);
         binding.recyclerView.setVisibility(View.VISIBLE);
     }
 

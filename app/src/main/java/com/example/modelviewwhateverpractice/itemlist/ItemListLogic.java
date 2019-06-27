@@ -13,7 +13,7 @@ public class ItemListLogic implements IViewContract.Logic {
     private final IViewContract.View view;
     private IViewContract.ViewModel viewModel;
 
-    private final CompositeDisposable disposable;
+    private CompositeDisposable disposable;
 
     ItemListLogic(IViewContract.View view, IViewContract.ViewModel viewModel) {
         this.view = view;

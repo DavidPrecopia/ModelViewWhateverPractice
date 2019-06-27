@@ -19,5 +19,7 @@ public interface IRepositoryContract {
         Single<Item> getItem(int itemId);
 
         Completable addItem(Item item);
+
+        Completable addItems(List<Item> items);
     }
 }

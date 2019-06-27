@@ -21,4 +21,7 @@ public interface ItemDao {
 
     @Insert
     long addItem(Item item);
+
+    @Insert
+    long[] addItems(List<Item> items);
 }
