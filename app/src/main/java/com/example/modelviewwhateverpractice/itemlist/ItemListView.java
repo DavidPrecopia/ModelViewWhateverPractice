@@ -57,6 +57,7 @@ public class ItemListView extends Fragment
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.view_item_list, container, false);
         initView();
+        logic.onStart();
         return binding.getRoot();
     }
 
@@ -78,15 +79,9 @@ public class ItemListView extends Fragment
 
 
     @Override
-    public void onStart() {
-        super.onStart();
-        logic.onStart();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        logic.onPause();
+    public void onDestroy() {
+        logic.onDestroy();
+        super.onDestroy();
     }
 
     @Override

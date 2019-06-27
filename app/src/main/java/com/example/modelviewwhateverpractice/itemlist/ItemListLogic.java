@@ -73,7 +73,7 @@ public class ItemListLogic implements IViewContract.Logic {
      * paused (moved to background).
      */
     @Override
-    public void onPause() {
+    public void onDestroy() {
         disposable.clear();
     }
 }

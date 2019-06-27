@@ -21,6 +21,7 @@ import timber.log.Timber;
 final class ItemListViewModel extends ViewModel
         implements IViewContract.ViewModel {
 
+    // Still using redundant Flowables.
     private Flowable<List<Item>> itemList;
     private final CompositeDisposable disposable;
 
@@ -96,7 +97,6 @@ final class ItemListViewModel extends ViewModel
 
     @Override
     public Flowable<List<Item>> subscribe() {
-//        initThisFlowable();
         return itemList;
 //        return repository.observe();
     }

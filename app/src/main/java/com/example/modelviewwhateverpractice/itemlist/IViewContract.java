@@ -24,7 +24,7 @@ interface IViewContract {
 
         void onStart();
 
-        void onPause();
+        void onDestroy();
     }
 
     /**
