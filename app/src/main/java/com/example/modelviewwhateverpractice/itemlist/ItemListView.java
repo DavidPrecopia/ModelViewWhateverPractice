@@ -1,6 +1,7 @@
 package com.example.modelviewwhateverpractice.itemlist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.modelviewwhateverpractice.R;
 import com.example.modelviewwhateverpractice.databinding.ViewItemListBinding;
 import com.example.modelviewwhateverpractice.datamodel.Item;
+import com.example.modelviewwhateverpractice.itemdetail.ItemDetailActivity;
 import com.example.modelviewwhateverpractice.repository.Repository;
 
 import org.jetbrains.annotations.NotNull;
@@ -62,9 +64,18 @@ public class ItemListView extends Fragment
         RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        adapter = new ItemAdapter();
+        adapter = new ItemAdapter(logic);
         recyclerView.setAdapter(adapter);
     }
+
+
+    @Override
+    public void openDetailView(String title) {
+        Intent intent = new Intent(getContext(), ItemDetailActivity.class);
+        intent.putExtra(ItemDetailActivity.INTENT_EXTRA_KEY, title);
+        getActivity().startActivity(intent);
+    }
+
 
     @Override
     public void onStart() {

@@ -12,8 +12,11 @@ import com.example.modelviewwhateverpractice.datamodel.Item;
 
 public class ItemAdapter extends ListAdapter<Item, ItemAdapter.ItemViewHolder> {
 
-    ItemAdapter() {
+    private final IViewContract.Logic logic;
+
+    ItemAdapter(IViewContract.Logic logic) {
         super(new ItemDiffCallback());
+        this.logic = logic;
     }
 
     @NonNull
@@ -37,6 +40,9 @@ public class ItemAdapter extends ListAdapter<Item, ItemAdapter.ItemViewHolder> {
         ItemViewHolder(ItemListItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            binding.getRoot().setOnClickListener(v ->
+                    logic.onItemClicked(getItem(getAdapterPosition()).getTitle())
+            );
         }
 
         private void bind(Item item) {

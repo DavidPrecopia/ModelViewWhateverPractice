@@ -15,10 +15,12 @@ interface IViewContract {
         void uiStateDisplayList();
 
         void uiStateError(String message);
+
+        void openDetailView(String title);
     }
 
     interface Logic {
-        void onItemClicked(int position);
+        void onItemClicked(String title);
 
         void onStart();
 

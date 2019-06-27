@@ -21,7 +21,7 @@ import timber.log.Timber;
 final class ItemListViewModel extends ViewModel
         implements IViewContract.ViewModel {
 
-    private final Flowable<List<Item>> itemList;
+    private Flowable<List<Item>> itemList;
     private final CompositeDisposable disposable;
 
     private IRepositoryContract.Repository repository;
@@ -42,13 +42,17 @@ final class ItemListViewModel extends ViewModel
      */
     ItemListViewModel(IRepositoryContract.Repository repository) {
         this.repository = repository;
-        this.itemList = Flowable.create(
+        disposable = new CompositeDisposable();
+
+        initThisFlowable();
+        initTheDb();
+    }
+
+    private void initThisFlowable() {
+        itemList = Flowable.create(
                 this::flowableEmitter,
                 BackpressureStrategy.BUFFER
         );
-        disposable = new CompositeDisposable();
-
-        initTheDb();
     }
 
     /**
@@ -56,6 +60,8 @@ final class ItemListViewModel extends ViewModel
      */
     private void flowableEmitter(FlowableEmitter<List<Item>> emitter) {
         disposable.add(repository.observe()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(itemSubscriber(emitter))
         );
     }
@@ -90,6 +96,7 @@ final class ItemListViewModel extends ViewModel
 
     @Override
     public Flowable<List<Item>> subscribe() {
+//        initThisFlowable();
         return itemList;
 //        return repository.observe();
     }
@@ -104,7 +111,7 @@ final class ItemListViewModel extends ViewModel
 
     private void initTheDb() {
         List<Item> items = new ArrayList<>();
-        for (int x = 0; x < 40; x++) {
+        for (int x = 0; x < 5; x++) {
             items.add(new Item(String.valueOf(x)));
         }
         disposable.add(repository.addItems(items)

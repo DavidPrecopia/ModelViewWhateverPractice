@@ -28,6 +28,8 @@ public class ItemListLogic implements IViewContract.Logic {
         view.uiStateLoading();
 
         disposable.add(viewModel.subscribe()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(itemSubscriber())
         );
     }
@@ -56,8 +58,8 @@ public class ItemListLogic implements IViewContract.Logic {
 
 
     @Override
-    public void onItemClicked(int position) {
-        throw new IllegalStateException("not implemented");
+    public void onItemClicked(String title) {
+        view.openDetailView(title);
     }
 
 
