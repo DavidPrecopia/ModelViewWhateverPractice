@@ -12,6 +12,9 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 import timber.log.Timber;
 
+/**
+ * Can safely rotate the device
+ */
 public class ItemListLogic implements IViewContract.Logic {
 
     private final IViewContract.View view;
