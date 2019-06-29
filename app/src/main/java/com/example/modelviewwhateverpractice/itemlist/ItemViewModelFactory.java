@@ -1,17 +1,17 @@
 package com.example.modelviewwhateverpractice.itemlist;
 
+import android.app.Application;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.modelviewwhateverpractice.repository.IRepositoryContract;
-
 final class ItemViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
-    private final IRepositoryContract.Repository repository;
+    private final Application application;
 
-    ItemViewModelFactory(IRepositoryContract.Repository repository) {
-        this.repository = repository;
+    ItemViewModelFactory(Application application) {
+        this.application = application;
     }
 
     @NonNull
@@ -19,7 +19,7 @@ final class ItemViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(ItemListViewModel.class)) {
             //noinspection unchecked
-            return (T) new ItemListViewModel(repository);
+            return (T) new ItemListViewModel(application);
         } else {
             throw new IllegalArgumentException("Unknown ViewModel");
         }

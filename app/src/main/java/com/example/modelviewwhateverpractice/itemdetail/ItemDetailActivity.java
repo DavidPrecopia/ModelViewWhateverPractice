@@ -36,7 +36,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         this.disposable = new CompositeDisposable();
 
         binding.fabAdd.setOnClickListener(v -> {
-            IRepositoryContract.Repository repository = new Repository(getApplication());
+            IRepositoryContract.Repository repository = Repository.getInstance(getApplication());
             disposable.add(repository.addItem(new Item("ADDED FROM DETAIL"))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

@@ -11,20 +11,30 @@ import java.util.List;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
-import timber.log.Timber;
 
 public final class Repository implements IRepositoryContract.Repository {
 
     private ItemDao dao;
 
-    public Repository(Application application) {
+    private static IRepositoryContract.Repository repository;
+
+    /**
+     * Util I implement DI.
+     */
+    public static IRepositoryContract.Repository getInstance(Application application) {
+        if (repository == null) {
+            repository = new Repository(application);
+        }
+        return repository;
+    }
+
+    private Repository(Application application) {
         dao = ItemDatabase.getInstance(application).itemDao();
     }
 
 
     @Override
     public Flowable<List<Item>> observe() {
-        Timber.i("REPOSITORY OBSERVE METHOD");
         return dao.getAllItems();
     }
 

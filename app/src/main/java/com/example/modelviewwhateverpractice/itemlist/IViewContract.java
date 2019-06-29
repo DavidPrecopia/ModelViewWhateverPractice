@@ -4,8 +4,6 @@ import com.example.modelviewwhateverpractice.datamodel.Item;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
-
 interface IViewContract {
     interface View {
         void setList(List<Item> itemList);
@@ -27,11 +25,13 @@ interface IViewContract {
         void onDestroy();
     }
 
-    /**
-     * Thanks to JetPack's ViewModel this will persist util the View is finished.
-     * Because of that, this will directly talk to the Repository.
-     */
     interface ViewModel {
-        Flowable<List<Item>> subscribe();
+        void setViewData(List<Item> items);
+
+        List<Item> getViewData();
+
+        String getMsgEmptyList();
+
+        String getMsgError();
     }
 }

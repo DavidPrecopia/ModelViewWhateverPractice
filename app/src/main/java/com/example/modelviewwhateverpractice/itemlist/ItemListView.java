@@ -46,10 +46,11 @@ public class ItemListView extends Fragment
         super.onAttach(context);
         // until I implement DI.
         ViewModelProvider.NewInstanceFactory factory
-                = new ItemViewModelFactory(new Repository(getActivity().getApplication()));
+                = new ItemViewModelFactory(getActivity().getApplication());
         logic = new ItemListLogic(
                 this,
-                ViewModelProviders.of(this, factory).get(ItemListViewModel.class)
+                ViewModelProviders.of(this, factory).get(ItemListViewModel.class),
+                Repository.getInstance(getActivity().getApplication())
         );
     }
 
