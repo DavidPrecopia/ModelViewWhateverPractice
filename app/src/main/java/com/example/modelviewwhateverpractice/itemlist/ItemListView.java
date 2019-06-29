@@ -91,21 +91,21 @@ public class ItemListView extends Fragment
     }
 
     @Override
-    public void uiStateLoading() {
+    public void setUiStateLoading() {
         binding.progressBar.setVisibility(View.VISIBLE);
         binding.error.setVisibility(View.INVISIBLE);
         binding.recyclerView.setVisibility(View.INVISIBLE);
     }
 
     @Override
-    public void uiStateDisplayList() {
+    public void setUiStateDisplayList() {
         binding.progressBar.setVisibility(View.INVISIBLE);
         binding.error.setVisibility(View.INVISIBLE);
         binding.recyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void uiStateError(String message) {
+    public void setIiStateError(String message) {
         binding.progressBar.setVisibility(View.INVISIBLE);
         binding.recyclerView.setVisibility(View.INVISIBLE);
         TextView error = binding.error;

@@ -8,11 +8,11 @@ interface IViewContract {
     interface View {
         void setList(List<Item> itemList);
 
-        void uiStateLoading();
+        void setUiStateLoading();
 
-        void uiStateDisplayList();
+        void setUiStateDisplayList();
 
-        void uiStateError(String message);
+        void setIiStateError(String message);
 
         void openDetailView(String title);
     }

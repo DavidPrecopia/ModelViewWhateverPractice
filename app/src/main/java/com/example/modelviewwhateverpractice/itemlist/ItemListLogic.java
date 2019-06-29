@@ -55,7 +55,7 @@ public class ItemListLogic implements IViewContract.Logic {
 
     @Override
     public void onStart() {
-        view.uiStateLoading();
+        view.setUiStateLoading();
 
         disposable.add(repository.observe()
                 .subscribeOn(Schedulers.io())
@@ -74,7 +74,7 @@ public class ItemListLogic implements IViewContract.Logic {
 
             @Override
             public void onError(Throwable t) {
-                view.uiStateError(viewModel.getMsgError());
+                view.setIiStateError(viewModel.getMsgError());
                 // Need to remove for JUnit testing.
                 Timber.e(t);
             }
@@ -89,9 +89,9 @@ public class ItemListLogic implements IViewContract.Logic {
     private void renderView() {
         view.setList(viewModel.getViewData());
         if (viewModel.getViewData().isEmpty()) {
-            view.uiStateError(viewModel.getMsgEmptyList());
+            view.setIiStateError(viewModel.getMsgEmptyList());
         } else {
-            view.uiStateDisplayList();
+            view.setUiStateDisplayList();
         }
     }
 
