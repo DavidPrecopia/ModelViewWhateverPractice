@@ -12,7 +12,7 @@ interface IViewContract {
 
         void setUiStateDisplayList();
 
-        void setIiStateError(String message);
+        void setUiStateError(String message);
 
         void openDetailView(String title);
     }

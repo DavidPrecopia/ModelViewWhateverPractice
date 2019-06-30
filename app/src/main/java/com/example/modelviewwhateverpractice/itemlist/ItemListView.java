@@ -110,7 +110,7 @@ public class ItemListView extends Fragment
     }
 
     @Override
-    public void setIiStateError(String message) {
+    public void setUiStateError(String message) {
         binding.progressBar.setVisibility(View.INVISIBLE);
         binding.recyclerView.setVisibility(View.INVISIBLE);
         TextView error = binding.error;
