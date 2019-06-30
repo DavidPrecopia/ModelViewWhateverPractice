@@ -62,7 +62,8 @@ dependencies {
     // Local testing
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.hamcrest:hamcrest-library:2.1'
-    testImplementation 'org.mockito:mockito-core:2.28.2'
+//    testImplementation 'org.mockito:mockito-core:2.28.2'
+    testImplementation 'org.mockito:mockito-inline:2.28.2'
 
     // For fragment-testing to work, both of these dependencies
     // have to be in the debugImplementation configuration.
