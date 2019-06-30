@@ -79,6 +79,9 @@ public class ItemListLogic implements IViewContract.Logic {
 
     @Override
     public void onItemClicked(String title) {
+        if (title == null) {
+            throw new IllegalArgumentException("Title cannot be null");
+        }
         view.openDetailView(title);
     }
 
