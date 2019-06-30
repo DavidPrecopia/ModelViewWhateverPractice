@@ -20,10 +20,13 @@ import com.example.modelviewwhateverpractice.databinding.ViewItemListBinding;
 import com.example.modelviewwhateverpractice.datamodel.Item;
 import com.example.modelviewwhateverpractice.itemdetail.ItemDetailActivity;
 import com.example.modelviewwhateverpractice.repository.Repository;
+import com.example.modelviewwhateverpractice.util.SchedulerProvider;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class ItemListView extends Fragment
         implements IViewContract.View {
@@ -42,7 +45,7 @@ public class ItemListView extends Fragment
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         // until I implement DI.
         ViewModelProvider.NewInstanceFactory factory
@@ -50,7 +53,9 @@ public class ItemListView extends Fragment
         logic = new ItemListLogic(
                 this,
                 ViewModelProviders.of(this, factory).get(ItemListViewModel.class),
-                Repository.getInstance(getActivity().getApplication())
+                Repository.getInstance(getActivity().getApplication()),
+                new SchedulerProvider(),
+                new CompositeDisposable()
         );
     }
 

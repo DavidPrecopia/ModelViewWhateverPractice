@@ -2,15 +2,12 @@ package com.example.modelviewwhateverpractice.itemlist;
 
 import com.example.modelviewwhateverpractice.datamodel.Item;
 import com.example.modelviewwhateverpractice.repository.IRepositoryContract;
+import com.example.modelviewwhateverpractice.util.ISchedulerProviderContract;
 
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableCompletableObserver;
-import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
-import timber.log.Timber;
 
 /**
  * Can safely rotate the device
@@ -18,38 +15,21 @@ import timber.log.Timber;
 public class ItemListLogic implements IViewContract.Logic {
 
     private final IViewContract.View view;
-    private IViewContract.ViewModel viewModel;
+    private final IViewContract.ViewModel viewModel;
     private final IRepositoryContract.Repository repository;
-
-    private CompositeDisposable disposable;
+    private final ISchedulerProviderContract schedulerProvider;
+    private final CompositeDisposable disposable;
 
     ItemListLogic(IViewContract.View view,
                   IViewContract.ViewModel viewModel,
-                  IRepositoryContract.Repository repository) {
+                  IRepositoryContract.Repository repository,
+                  ISchedulerProviderContract schedulerProvider,
+                  CompositeDisposable disposable) {
         this.view = view;
         this.viewModel = viewModel;
         this.repository = repository;
-        this.disposable = new CompositeDisposable();
-
-        addToRepository();
-    }
-
-    private void addToRepository() {
-        disposable.add(repository.addItem(new Item("Added from Logic"))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableCompletableObserver() {
-                    @Override
-                    public void onComplete() {
-                        Timber.i("Adding from Logic worked");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.e(e);
-                    }
-                })
-        );
+        this.schedulerProvider = schedulerProvider;
+        this.disposable = disposable;
     }
 
 
@@ -58,8 +38,8 @@ public class ItemListLogic implements IViewContract.Logic {
         view.setUiStateLoading();
 
         disposable.add(repository.observe()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
                 .subscribeWith(itemSubscriber())
         );
     }
@@ -76,21 +56,22 @@ public class ItemListLogic implements IViewContract.Logic {
             public void onError(Throwable t) {
                 view.setIiStateError(viewModel.getMsgError());
                 // Need to remove for JUnit testing.
-                Timber.e(t);
+//                Timber.e(t);
             }
 
             @Override
             public void onComplete() {
-                Timber.i("onComplete()");
+//                Timber.i("onComplete()");
             }
         };
     }
 
     private void renderView() {
-        view.setList(viewModel.getViewData());
-        if (viewModel.getViewData().isEmpty()) {
+        List<Item> itemList = viewModel.getViewData();
+        if (itemList.isEmpty()) {
             view.setIiStateError(viewModel.getMsgEmptyList());
         } else {
+            view.setList(itemList);
             view.setUiStateDisplayList();
         }
     }
