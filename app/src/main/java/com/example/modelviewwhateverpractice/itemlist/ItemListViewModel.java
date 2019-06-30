@@ -2,16 +2,13 @@ package com.example.modelviewwhateverpractice.itemlist;
 
 import android.app.Application;
 
-import androidx.lifecycle.ViewModel;
-
 import com.example.modelviewwhateverpractice.R;
 import com.example.modelviewwhateverpractice.datamodel.Item;
 
 import java.util.ArrayList;
 import java.util.List;
 
-final class ItemListViewModel extends ViewModel
-        implements IViewContract.ViewModel {
+final class ItemListViewModel implements IViewContract.ViewModel {
 
     private List<Item> itemList;
 

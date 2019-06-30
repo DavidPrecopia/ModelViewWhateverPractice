@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,11 +46,9 @@ public class ItemListView extends Fragment
     public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         // until I implement DI.
-        ViewModelProvider.NewInstanceFactory factory
-                = new ItemViewModelFactory(getActivity().getApplication());
         logic = new ItemListLogic(
                 this,
-                ViewModelProviders.of(this, factory).get(ItemListViewModel.class),
+                new ItemListViewModel(getActivity().getApplication()),
                 Repository.getInstance(getActivity().getApplication()),
                 new SchedulerProvider(),
                 new CompositeDisposable()
