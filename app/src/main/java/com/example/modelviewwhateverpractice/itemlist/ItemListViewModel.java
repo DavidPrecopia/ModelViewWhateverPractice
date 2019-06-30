@@ -41,7 +41,7 @@ final class ItemListViewModel extends ViewModel
 
     @Override
     public String getMsgEmptyList() {
-        return getStringResource(R.string.empty_list);
+        return getStringResource(R.string.error_msg_empty_list);
     }
 
     @Override

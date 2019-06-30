@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">ModelViewWhateverPractice</string>
-    <string name="empty_list">Empty List</string>
+    <string name="error_msg_empty_list">Empty List</string>
     <string name="error_msg_generic">Error message</string>
 </resources>
