@@ -10,7 +10,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subscribers.DisposableSubscriber;
 
 /**
- * Can safely rotate the device
+ * Can safely rotate the device.
  */
 public class ItemListLogic implements IViewContract.Logic {
 
@@ -55,13 +55,10 @@ public class ItemListLogic implements IViewContract.Logic {
             @Override
             public void onError(Throwable t) {
                 view.setUiStateError(viewModel.getMsgError());
-                // Need to remove for JUnit testing.
-//                Timber.e(t);
             }
 
             @Override
             public void onComplete() {
-//                Timber.i("onComplete()");
             }
         };
     }
@@ -86,15 +83,6 @@ public class ItemListLogic implements IViewContract.Logic {
     }
 
 
-    /**
-     * ViewModel reference is being held onto, that should cause a memory leak.
-     * <p>
-     * I am not nulling the reference, yet I have no leaks per LeakCanary.
-     * I assume that is because the ViewModel is persisting.
-     * <p>
-     * CANNOT null the reference because this will called when the View is simply
-     * paused (moved to background).
-     */
     @Override
     public void onDestroy() {
         disposable.clear();
