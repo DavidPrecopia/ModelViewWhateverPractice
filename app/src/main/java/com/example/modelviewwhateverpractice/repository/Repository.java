@@ -1,10 +1,7 @@
 package com.example.modelviewwhateverpractice.repository;
 
-import android.app.Application;
-
 import com.example.modelviewwhateverpractice.datamodel.Item;
 import com.example.modelviewwhateverpractice.repository.localrepository.ItemDao;
-import com.example.modelviewwhateverpractice.repository.localrepository.ItemDatabase;
 
 import java.util.List;
 
@@ -21,15 +18,15 @@ public final class Repository implements IRepositoryContract.Repository {
     /**
      * Util I implement DI.
      */
-    public static IRepositoryContract.Repository getInstance(Application application) {
+    public static IRepositoryContract.Repository getInstance(ItemDao itemDao) {
         if (repository == null) {
-            repository = new Repository(application);
+            repository = new Repository(itemDao);
         }
         return repository;
     }
 
-    private Repository(Application application) {
-        dao = ItemDatabase.getInstance(application).itemDao();
+    private Repository(ItemDao itemDao) {
+        dao = itemDao;
     }
 
 

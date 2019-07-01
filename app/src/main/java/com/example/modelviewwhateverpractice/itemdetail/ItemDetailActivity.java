@@ -11,6 +11,8 @@ import com.example.modelviewwhateverpractice.databinding.ActivityItemDetailBindi
 import com.example.modelviewwhateverpractice.datamodel.Item;
 import com.example.modelviewwhateverpractice.repository.IRepositoryContract;
 import com.example.modelviewwhateverpractice.repository.Repository;
+import com.example.modelviewwhateverpractice.repository.localrepository.ItemDao;
+import com.example.modelviewwhateverpractice.repository.localrepository.ItemDatabase;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -36,7 +38,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         this.disposable = new CompositeDisposable();
 
         binding.fabAdd.setOnClickListener(v -> {
-            IRepositoryContract.Repository repository = Repository.getInstance(getApplication());
+            IRepositoryContract.Repository repository = Repository.getInstance(getDao());
             disposable.add(repository.addItem(new Item("ADDED FROM DETAIL"))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -55,6 +57,10 @@ public class ItemDetailActivity extends AppCompatActivity {
                         }
                     }));
         });
+    }
+
+    private ItemDao getDao() {
+        return ItemDatabase.getInstance(getApplication()).itemDao();
     }
 
 

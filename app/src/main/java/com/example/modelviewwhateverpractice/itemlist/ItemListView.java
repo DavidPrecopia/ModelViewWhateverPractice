@@ -18,6 +18,7 @@ import com.example.modelviewwhateverpractice.databinding.ViewItemListBinding;
 import com.example.modelviewwhateverpractice.datamodel.Item;
 import com.example.modelviewwhateverpractice.itemdetail.ItemDetailActivity;
 import com.example.modelviewwhateverpractice.repository.Repository;
+import com.example.modelviewwhateverpractice.repository.localrepository.ItemDatabase;
 import com.example.modelviewwhateverpractice.util.SchedulerProvider;
 
 import org.jetbrains.annotations.NotNull;
@@ -49,7 +50,7 @@ public class ItemListView extends Fragment
         logic = new ItemListLogic(
                 this,
                 new ItemListViewModel(getActivity().getApplication()),
-                Repository.getInstance(getActivity().getApplication()),
+                Repository.getInstance(ItemDatabase.getInstance(getActivity().getApplication()).itemDao()),
                 new SchedulerProvider(),
                 new CompositeDisposable()
         );

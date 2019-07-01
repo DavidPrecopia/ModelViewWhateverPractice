@@ -2,6 +2,7 @@ package com.example.modelviewwhateverpractice.repository.localrepository;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.modelviewwhateverpractice.datamodel.Item;
@@ -16,10 +17,10 @@ public interface ItemDao {
     @Query("SELECT * FROM " + ItemDbConstants.ITEM_TABLE)
     Flowable<List<Item>> getAllItems();
 
-    @Query("SELECT * FROM " + ItemDbConstants.ITEM_TABLE + " WHERE :id = " + ItemDbConstants.COLUMN_ID)
+    @Query("SELECT * FROM " + ItemDbConstants.ITEM_TABLE + " WHERE " + ItemDbConstants.COLUMN_ID + " = :id")
     Single<Item> getItem(int id);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long addItem(Item item);
 
     @Insert
