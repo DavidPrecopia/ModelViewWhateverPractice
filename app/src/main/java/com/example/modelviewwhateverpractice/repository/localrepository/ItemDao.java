@@ -22,7 +22,4 @@ public interface ItemDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long addItem(Item item);
-
-    @Insert
-    long[] addItems(List<Item> items);
 }

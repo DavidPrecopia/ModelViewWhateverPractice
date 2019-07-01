@@ -44,9 +44,4 @@ public final class Repository implements IRepositoryContract.Repository {
     public Completable addItem(Item item) {
         return Completable.fromCallable(() -> (dao.addItem(item) >= 0));
     }
-
-    @Override
-    public Completable addItems(List<Item> items) {
-        return Completable.fromCallable(() -> (dao.addItems(items).length >= 0));
-    }
 }
