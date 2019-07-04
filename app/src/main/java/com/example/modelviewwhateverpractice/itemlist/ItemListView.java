@@ -65,6 +65,15 @@ public class ItemListView extends Fragment
     }
 
     private void initView() {
+        initFab();
+        initRecyclerView();
+    }
+
+    private void initFab() {
+        binding.fabAddList.setOnClickListener(v -> logic.addItem());
+    }
+
+    private void initRecyclerView() {
         RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));

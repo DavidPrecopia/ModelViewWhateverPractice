@@ -7,12 +7,17 @@ import com.example.modelviewwhateverpractice.util.ISchedulerProviderContract;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.subscribers.DisposableSubscriber;
+import timber.log.Timber;
 
 /**
  * Can safely rotate the device.
  */
 public class ItemListLogic implements IListViewContract.Logic {
+
+    // Practice testing reasons.
+    static final String NEW_ITEM_TITLE = "ADDED FROM LIST";
 
     private final IListViewContract.View view;
     private final IListViewContract.ViewModel viewModel;
@@ -80,6 +85,24 @@ public class ItemListLogic implements IListViewContract.Logic {
             throw new IllegalArgumentException("Title cannot be null");
         }
         view.openDetailView(title);
+    }
+
+    @Override
+    public void addItem() {
+        disposable.add(repository.addItem(new Item(NEW_ITEM_TITLE))
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribeWith(new DisposableCompletableObserver() {
+                    @Override
+                    public void onComplete() {
+                        Timber.i("ON COMPLETE");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.e(e);
+                    }
+                }));
     }
 
 

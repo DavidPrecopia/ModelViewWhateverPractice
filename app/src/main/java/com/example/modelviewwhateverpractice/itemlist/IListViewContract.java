@@ -18,9 +18,11 @@ interface IListViewContract {
     }
 
     interface Logic {
+        void onStart();
+
         void onItemClicked(String title);
 
-        void onStart();
+        void addItem();
 
         void onDestroy();
     }
