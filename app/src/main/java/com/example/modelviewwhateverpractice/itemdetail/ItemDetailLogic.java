@@ -8,7 +8,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableCompletableObserver;
 import timber.log.Timber;
 
-class DetailLogic implements IDetailViewContract.Logic {
+class ItemDetailLogic implements IDetailViewContract.Logic {
 
     private final IDetailViewContract.View view;
     private final IDetailViewContract.ViewModel viewModel;
@@ -17,11 +17,11 @@ class DetailLogic implements IDetailViewContract.Logic {
     private final ISchedulerProviderContract schedulerProvider;
     private final CompositeDisposable disposable;
 
-    DetailLogic(IDetailViewContract.View view,
-                IDetailViewContract.ViewModel viewModel,
-                IRepositoryContract.Repository repository,
-                ISchedulerProviderContract schedulerProvider,
-                CompositeDisposable disposable) {
+    ItemDetailLogic(IDetailViewContract.View view,
+                    IDetailViewContract.ViewModel viewModel,
+                    IRepositoryContract.Repository repository,
+                    ISchedulerProviderContract schedulerProvider,
+                    CompositeDisposable disposable) {
         this.view = view;
         this.viewModel = viewModel;
         this.repository = repository;

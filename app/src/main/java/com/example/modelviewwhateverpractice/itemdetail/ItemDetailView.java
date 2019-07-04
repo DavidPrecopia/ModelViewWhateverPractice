@@ -41,7 +41,7 @@ public class ItemDetailView extends Fragment implements IDetailViewContract.View
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // util I implement DI.
-        logic = new DetailLogic(
+        logic = new ItemDetailLogic(
                 this,
                 new DetailViewModel(),
                 Repository.getInstance(ItemDatabase.getInstance(getActivity().getApplication()).itemDao()),
