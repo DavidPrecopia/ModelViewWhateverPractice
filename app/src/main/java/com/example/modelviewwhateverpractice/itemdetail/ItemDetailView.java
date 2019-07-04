@@ -23,7 +23,7 @@ public class ItemDetailView extends Fragment implements IDetailViewContract.View
     private ItemDetailViewBinding binding;
     private IDetailViewContract.Logic logic;
 
-    private static final String ARG_KEY_TITLE = "ARG_KEY_TITLE";
+    static final String ARG_KEY_TITLE = "ARG_KEY_TITLE";
 
 
     public ItemDetailView() {

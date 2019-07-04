@@ -10,6 +10,8 @@ import timber.log.Timber;
 
 class ItemDetailLogic implements IDetailViewContract.Logic {
 
+    static final String title = "ADDED FROM DETAIL";
+
     private final IDetailViewContract.View view;
     private final IDetailViewContract.ViewModel viewModel;
 
@@ -39,13 +41,13 @@ class ItemDetailLogic implements IDetailViewContract.Logic {
 
     @Override
     public void addItem() {
-        disposable.add(repository.addItem(new Item("ADDED FROM DETAIL"))
+        disposable.add(repository.addItem(new Item(title))
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribeWith(new DisposableCompletableObserver() {
                     @Override
                     public void onComplete() {
-                        Timber.i("ON COMPLETE");
+                        view.setViewData(title);
                     }
 
                     @Override
