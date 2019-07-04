@@ -28,12 +28,12 @@ import java.util.List;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class ItemListView extends Fragment
-        implements IViewContract.View {
+        implements IListViewContract.View {
 
     private ViewItemListBinding binding;
     private ItemAdapter adapter;
 
-    private IViewContract.Logic logic;
+    private IListViewContract.Logic logic;
 
 
     public ItemListView() {

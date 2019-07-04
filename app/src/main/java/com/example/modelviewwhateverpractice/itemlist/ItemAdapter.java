@@ -12,9 +12,9 @@ import com.example.modelviewwhateverpractice.datamodel.Item;
 
 public class ItemAdapter extends ListAdapter<Item, ItemAdapter.ItemViewHolder> {
 
-    private final IViewContract.Logic logic;
+    private final IListViewContract.Logic logic;
 
-    ItemAdapter(IViewContract.Logic logic) {
+    ItemAdapter(IListViewContract.Logic logic) {
         super(new ItemDiffCallback());
         this.logic = logic;
     }

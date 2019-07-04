@@ -12,16 +12,16 @@ import io.reactivex.subscribers.DisposableSubscriber;
 /**
  * Can safely rotate the device.
  */
-public class ItemListLogic implements IViewContract.Logic {
+public class ItemListLogic implements IListViewContract.Logic {
 
-    private final IViewContract.View view;
-    private final IViewContract.ViewModel viewModel;
+    private final IListViewContract.View view;
+    private final IListViewContract.ViewModel viewModel;
     private final IRepositoryContract.Repository repository;
     private final ISchedulerProviderContract schedulerProvider;
     private final CompositeDisposable disposable;
 
-    ItemListLogic(IViewContract.View view,
-                  IViewContract.ViewModel viewModel,
+    ItemListLogic(IListViewContract.View view,
+                  IListViewContract.ViewModel viewModel,
                   IRepositoryContract.Repository repository,
                   ISchedulerProviderContract schedulerProvider,
                   CompositeDisposable disposable) {

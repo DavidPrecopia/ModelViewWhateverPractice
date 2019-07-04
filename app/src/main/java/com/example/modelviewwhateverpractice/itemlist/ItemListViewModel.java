@@ -8,7 +8,7 @@ import com.example.modelviewwhateverpractice.datamodel.Item;
 import java.util.ArrayList;
 import java.util.List;
 
-final class ItemListViewModel implements IViewContract.ViewModel {
+final class ItemListViewModel implements IListViewContract.ViewModel {
 
     private List<Item> itemList;
 

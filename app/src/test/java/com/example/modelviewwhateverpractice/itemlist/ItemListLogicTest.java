@@ -26,10 +26,10 @@ import static org.mockito.Mockito.when;
 public class ItemListLogicTest {
 
     @Mock
-    private IViewContract.View view;
+    private IListViewContract.View view;
 
     @Mock
-    private IViewContract.ViewModel viewModel;
+    private IListViewContract.ViewModel viewModel;
 
     @Mock
     private IRepositoryContract.Repository repository;

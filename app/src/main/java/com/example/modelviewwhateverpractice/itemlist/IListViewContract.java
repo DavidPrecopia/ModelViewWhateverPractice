@@ -4,7 +4,7 @@ import com.example.modelviewwhateverpractice.datamodel.Item;
 
 import java.util.List;
 
-interface IViewContract {
+interface IListViewContract {
     interface View {
         void setList(List<Item> itemList);
 
