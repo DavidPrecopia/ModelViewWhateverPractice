@@ -10,14 +10,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.modelviewwhateverpractice.databinding.ItemListItemBinding;
 import com.example.modelviewwhateverpractice.datamodel.Item;
 
-public class ItemAdapter extends ListAdapter<Item, ItemAdapter.ItemViewHolder> {
+import java.util.List;
 
-    private final IListViewContract.Logic logic;
+public class ItemAdapter extends ListAdapter<Item, ItemAdapter.ItemViewHolder>
+        implements IListViewContract.ViewAdapter {
 
-    ItemAdapter(IListViewContract.Logic logic) {
+    private IListViewContract.Logic logic;
+
+    ItemAdapter() {
         super(new ItemDiffCallback());
+    }
+
+    @Override
+    public void init(IListViewContract.Logic logic) {
         this.logic = logic;
     }
+
 
     @NonNull
     @Override
@@ -30,6 +38,11 @@ public class ItemAdapter extends ListAdapter<Item, ItemAdapter.ItemViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.bind(getItem(position));
+    }
+
+    @Override
+    public void setViewData(List<Item> itemList) {
+        submitList(itemList);
     }
 
 

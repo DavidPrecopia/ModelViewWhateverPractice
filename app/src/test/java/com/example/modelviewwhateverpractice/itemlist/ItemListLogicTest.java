@@ -29,6 +29,9 @@ public class ItemListLogicTest {
     private IListViewContract.View view;
 
     @Mock
+    private IListViewContract.ViewAdapter viewAdapter;
+
+    @Mock
     private IListViewContract.ViewModel viewModel;
 
     @Mock
@@ -79,7 +82,7 @@ public class ItemListLogicTest {
         verify(view).setUiStateLoading();
         verify(viewModel).setViewData(itemList);
         verify(viewModel).getViewData();
-        verify(view).setList(itemList);
+        verify(viewAdapter).setViewData(itemList);
         verify(view).setUiStateDisplayList();
     }
 

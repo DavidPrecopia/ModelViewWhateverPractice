@@ -1,5 +1,7 @@
 package com.example.modelviewwhateverpractice.itemlist;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.modelviewwhateverpractice.datamodel.Item;
 import com.example.modelviewwhateverpractice.repository.IRepositoryContract;
 import com.example.modelviewwhateverpractice.util.ISchedulerProviderContract;
@@ -11,26 +13,28 @@ import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.subscribers.DisposableSubscriber;
 import timber.log.Timber;
 
-/**
- * Can safely rotate the device.
- */
 public class ItemListLogic implements IListViewContract.Logic {
 
     // Practice testing reasons.
     static final String NEW_ITEM_TITLE = "ADDED FROM LIST";
 
     private final IListViewContract.View view;
+    private final IListViewContract.ViewAdapter adapter;
     private final IListViewContract.ViewModel viewModel;
+
     private final IRepositoryContract.Repository repository;
     private final ISchedulerProviderContract schedulerProvider;
     private final CompositeDisposable disposable;
 
     ItemListLogic(IListViewContract.View view,
+                  IListViewContract.ViewAdapter adapter,
                   IListViewContract.ViewModel viewModel,
                   IRepositoryContract.Repository repository,
                   ISchedulerProviderContract schedulerProvider,
                   CompositeDisposable disposable) {
         this.view = view;
+        this.adapter = adapter;
+        this.adapter.init(this);
         this.viewModel = viewModel;
         this.repository = repository;
         this.schedulerProvider = schedulerProvider;
@@ -73,7 +77,7 @@ public class ItemListLogic implements IListViewContract.Logic {
         if (itemList.isEmpty()) {
             view.setUiStateError(viewModel.getMsgEmptyList());
         } else {
-            view.setList(itemList);
+            adapter.setViewData(itemList);
             view.setUiStateDisplayList();
         }
     }
@@ -103,6 +107,12 @@ public class ItemListLogic implements IListViewContract.Logic {
                         Timber.e(e);
                     }
                 }));
+    }
+
+
+    @Override
+    public RecyclerView.Adapter getAdapter() {
+        return (RecyclerView.Adapter) adapter;
     }
 
 
