@@ -8,7 +8,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableCompletableObserver;
 import timber.log.Timber;
 
-class ItemDetailLogic implements IDetailViewContract.Logic {
+public class ItemDetailLogic implements IDetailViewContract.Logic {
 
     static final String title = "ADDED FROM DETAIL";
 
@@ -19,11 +19,11 @@ class ItemDetailLogic implements IDetailViewContract.Logic {
     private final ISchedulerProviderContract schedulerProvider;
     private final CompositeDisposable disposable;
 
-    ItemDetailLogic(IDetailViewContract.View view,
-                    IDetailViewContract.ViewModel viewModel,
-                    IRepositoryContract.Repository repository,
-                    ISchedulerProviderContract schedulerProvider,
-                    CompositeDisposable disposable) {
+    public ItemDetailLogic(IDetailViewContract.View view,
+                           IDetailViewContract.ViewModel viewModel,
+                           IRepositoryContract.Repository repository,
+                           ISchedulerProviderContract schedulerProvider,
+                           CompositeDisposable disposable) {
         this.view = view;
         this.viewModel = viewModel;
         this.repository = repository;

@@ -1,10 +1,10 @@
 package com.example.modelviewwhateverpractice.itemdetail;
 
-class DetailViewModel implements IDetailViewContract.ViewModel {
+public class ItemDetailViewModel implements IDetailViewContract.ViewModel {
 
     private String title;
 
-    DetailViewModel() {
+    public ItemDetailViewModel() {
     }
 
 

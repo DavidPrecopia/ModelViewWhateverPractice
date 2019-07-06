@@ -10,18 +10,18 @@ import androidx.fragment.app.Fragment;
 
 import com.example.modelviewwhateverpractice.R;
 import com.example.modelviewwhateverpractice.databinding.ItemDetailViewBinding;
-import com.example.modelviewwhateverpractice.repository.Repository;
-import com.example.modelviewwhateverpractice.repository.localrepository.ItemDatabase;
-import com.example.modelviewwhateverpractice.util.SchedulerProvider;
+import com.example.modelviewwhateverpractice.itemdetail.buildlogic.DaggerItemDetailComponent;
 
 import org.jetbrains.annotations.NotNull;
 
-import io.reactivex.disposables.CompositeDisposable;
+import javax.inject.Inject;
 
 public class ItemDetailView extends Fragment implements IDetailViewContract.View {
 
     private ItemDetailViewBinding binding;
-    private IDetailViewContract.Logic logic;
+
+    @Inject
+    IDetailViewContract.Logic logic;
 
     static final String ARG_KEY_TITLE = "ARG_KEY_TITLE";
 
@@ -39,15 +39,16 @@ public class ItemDetailView extends Fragment implements IDetailViewContract.View
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        inject();
         super.onCreate(savedInstanceState);
-        // util I implement DI.
-        logic = new ItemDetailLogic(
-                this,
-                new DetailViewModel(),
-                Repository.getInstance(ItemDatabase.getInstance(getActivity().getApplication()).itemDao()),
-                new SchedulerProvider(),
-                new CompositeDisposable()
-        );
+    }
+
+    private void inject() {
+        DaggerItemDetailComponent.builder()
+                .view(this)
+                .application(getActivity().getApplication())
+                .build()
+                .inject(this);
     }
 
     @Override

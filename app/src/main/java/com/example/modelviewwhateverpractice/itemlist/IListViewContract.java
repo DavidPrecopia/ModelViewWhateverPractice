@@ -6,7 +6,7 @@ import com.example.modelviewwhateverpractice.datamodel.Item;
 
 import java.util.List;
 
-interface IListViewContract {
+public interface IListViewContract {
     interface View {
         void setUiStateLoading();
 

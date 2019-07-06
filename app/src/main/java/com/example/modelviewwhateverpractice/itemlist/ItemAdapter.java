@@ -17,7 +17,7 @@ public class ItemAdapter extends ListAdapter<Item, ItemAdapter.ItemViewHolder>
 
     private IListViewContract.Logic logic;
 
-    ItemAdapter() {
+    public ItemAdapter() {
         super(new ItemDiffCallback());
     }
 

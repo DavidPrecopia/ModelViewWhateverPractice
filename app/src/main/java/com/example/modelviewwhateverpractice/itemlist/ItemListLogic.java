@@ -26,12 +26,12 @@ public class ItemListLogic implements IListViewContract.Logic {
     private final ISchedulerProviderContract schedulerProvider;
     private final CompositeDisposable disposable;
 
-    ItemListLogic(IListViewContract.View view,
-                  IListViewContract.ViewAdapter adapter,
-                  IListViewContract.ViewModel viewModel,
-                  IRepositoryContract.Repository repository,
-                  ISchedulerProviderContract schedulerProvider,
-                  CompositeDisposable disposable) {
+    public ItemListLogic(IListViewContract.View view,
+                         IListViewContract.ViewAdapter adapter,
+                         IListViewContract.ViewModel viewModel,
+                         IRepositoryContract.Repository repository,
+                         ISchedulerProviderContract schedulerProvider,
+                         CompositeDisposable disposable) {
         this.view = view;
         this.adapter = adapter;
         this.adapter.init(this);

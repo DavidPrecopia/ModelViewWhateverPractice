@@ -16,20 +16,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.modelviewwhateverpractice.R;
 import com.example.modelviewwhateverpractice.databinding.ViewItemListBinding;
 import com.example.modelviewwhateverpractice.itemdetail.ItemDetailActivity;
-import com.example.modelviewwhateverpractice.repository.Repository;
-import com.example.modelviewwhateverpractice.repository.localrepository.ItemDatabase;
-import com.example.modelviewwhateverpractice.util.SchedulerProvider;
+import com.example.modelviewwhateverpractice.itemlist.buildlogic.DaggerItemListComponent;
 
 import org.jetbrains.annotations.NotNull;
 
-import io.reactivex.disposables.CompositeDisposable;
+import javax.inject.Inject;
 
 public class ItemListView extends Fragment
         implements IListViewContract.View {
 
     private ViewItemListBinding binding;
 
-    private IListViewContract.Logic logic;
+    @Inject
+    IListViewContract.Logic logic;
 
 
     public ItemListView() {
@@ -41,16 +40,16 @@ public class ItemListView extends Fragment
 
     @Override
     public void onAttach(@NotNull Context context) {
+        inject();
         super.onAttach(context);
-        // until I implement DI.
-        logic = new ItemListLogic(
-                this,
-                new ItemAdapter(),
-                new ItemListViewModel(getActivity().getApplication()),
-                Repository.getInstance(ItemDatabase.getInstance(getActivity().getApplication()).itemDao()),
-                new SchedulerProvider(),
-                new CompositeDisposable()
-        );
+    }
+
+    private void inject() {
+        DaggerItemListComponent.builder()
+                .view(this)
+                .application(getActivity().getApplication())
+                .build()
+                .inject(this);
     }
 
     @Override

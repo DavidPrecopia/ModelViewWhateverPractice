@@ -13,19 +13,7 @@ public final class Repository implements IRepositoryContract.Repository {
 
     private ItemDao dao;
 
-    private static IRepositoryContract.Repository repository;
-
-    /**
-     * Util I implement DI.
-     */
-    public static IRepositoryContract.Repository getInstance(ItemDao itemDao) {
-        if (repository == null) {
-            repository = new Repository(itemDao);
-        }
-        return repository;
-    }
-
-    private Repository(ItemDao itemDao) {
+    public Repository(ItemDao itemDao) {
         dao = itemDao;
     }
 

@@ -1,6 +1,6 @@
 package com.example.modelviewwhateverpractice.itemdetail;
 
-interface IDetailViewContract {
+public interface IDetailViewContract {
     interface View {
         void setViewData(String title);
     }
