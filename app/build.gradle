@@ -23,6 +23,22 @@ android {
             applicationIdSuffix ".debug"
         }
     }
+    flavorDimensions("normal")
+    productFlavors {
+        mock {
+            dimension "normal"
+            applicationIdSuffix ".mock"
+        }
+        prod {
+            dimension "normal"
+        }
+    }
+    // This prevents the creation of mockRelease
+    android.variantFilter { variant ->
+        if (variant.buildType.name.equals('release') && variant.getFlavors().get(0).name.equals('mock')) {
+            variant.setIgnore(true)
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
