@@ -3,8 +3,8 @@ package com.example.modelviewwhateverpractice.itemlist;
 import com.example.modelviewwhateverpractice.datamodel.Item;
 import com.example.modelviewwhateverpractice.repository.IRepositoryContract;
 import com.example.modelviewwhateverpractice.util.ISchedulerProviderContract;
-import com.example.modelviewwhateverpractice.util.SchedulerProvider;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,6 +16,7 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -36,7 +37,8 @@ public class ItemListLogicTest {
     @Mock
     private IRepositoryContract.Repository repository;
 
-    private ISchedulerProviderContract schedulerProvider = spy(new SchedulerProvider());
+    @Mock
+    private ISchedulerProviderContract schedulerProvider;
 
     private CompositeDisposable disposable = spy(new CompositeDisposable());
 
@@ -46,6 +48,22 @@ public class ItemListLogicTest {
 
     @InjectMocks
     private ItemListLogic logic;
+
+
+    /**
+     * Trampoline: a Scheduler that queues work on the current thread to be
+     * executed after the current work completes.
+     * Another way to put it: emits result in a sequentially predictable order.
+     * <p>
+     * Because this is a unit test that is running on the JVM,
+     * all operations run on the same thread the tests are running on.
+     * Otherwise, an error in thrown by the Observable.
+     */
+    @Before
+    public void init() {
+        when(schedulerProvider.io()).thenReturn(Schedulers.trampoline());
+        when(schedulerProvider.ui()).thenReturn(Schedulers.trampoline());
+    }
 
 
     /**
@@ -72,7 +90,7 @@ public class ItemListLogicTest {
      * When an empty List of Items is returned by the Repository,
      * the UI should display an error with a message indicating that the
      * list is empty.
-     *
+     * <p>
      * Because all user facing messages are stored in res/strings, I am supplying
      * my own.
      */
@@ -95,7 +113,7 @@ public class ItemListLogicTest {
     /**
      * If the Flowable returned by the Repository throws an error,
      * the View should display an error.
-     *
+     * <p>
      * If this was a non-practice app, I would forward the Exception
      * to a util class that would either throw the Exception is build is DEBUG, else,
      * report it to Crashlytics.
