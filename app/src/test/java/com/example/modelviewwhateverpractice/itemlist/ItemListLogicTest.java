@@ -1,5 +1,6 @@
 package com.example.modelviewwhateverpractice.itemlist;
 
+import com.example.modelviewwhateverpractice.SchedulerProviderMockInit;
 import com.example.modelviewwhateverpractice.datamodel.Item;
 import com.example.modelviewwhateverpractice.repository.IRepositoryContract;
 import com.example.modelviewwhateverpractice.util.ISchedulerProviderContract;
@@ -16,7 +17,6 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -50,19 +50,9 @@ public class ItemListLogicTest {
     private ItemListLogic logic;
 
 
-    /**
-     * Trampoline: a Scheduler that queues work on the current thread to be
-     * executed after the current work completes.
-     * Another way to put it: emits result in a sequentially predictable order.
-     * <p>
-     * Because this is a unit test that is running on the JVM,
-     * all operations run on the same thread the tests are running on.
-     * Otherwise, an error in thrown by the Observable.
-     */
     @Before
     public void init() {
-        when(schedulerProvider.io()).thenReturn(Schedulers.trampoline());
-        when(schedulerProvider.ui()).thenReturn(Schedulers.trampoline());
+        SchedulerProviderMockInit.init(schedulerProvider);
     }
 
 
