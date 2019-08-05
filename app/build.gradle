@@ -79,14 +79,14 @@ dependencies {
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:2.0-alpha-3"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:2.0-beta-2"
 
 
     // Local testing
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.hamcrest:hamcrest-library:2.1'
     // Compared to core, this enable mocking of final classes.
-    testImplementation 'org.mockito:mockito-inline:2.28.2'
+    testImplementation 'org.mockito:mockito-inline:3.0.0'
 
     // AndroidJUnit4 from here.
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
